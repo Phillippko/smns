@@ -1,38 +1,29 @@
 package com.phillippko.smns.service;
 
-import com.phillippko.smns.domain.Measurement;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/*
+@AllArgsConstructor
 @SpringBootTest
-class MeasurementServiceTest {
+@RequiredArgsConstructor
+class MeasurementServiceTest
 
-    private static final String SPB_LAT = "59.95";
-    private static final String SPB_LNG = "30.31";
-    private static final String NY_LNG = "40.71";
-    private static final String NY_LAT = "-74";
-    private static final String LA_LAT = "34.05" ;
-    private static final String LA_LNG = "-118.24";
+{
+    private static final BigDecimal SPB_LAT = BigDecimal.valueOf(59.95);
+    private static final BigDecimal SPB_LNG = BigDecimal.valueOf(30.31);
+    private static final BigDecimal NY_LNG = BigDecimal.valueOf(40.71);
+    private static final BigDecimal NY_LAT = BigDecimal.valueOf(-74);
+    private static final BigDecimal LA_LAT = BigDecimal.valueOf(34.05);
+    private static final BigDecimal LA_LNG = BigDecimal.valueOf(-118.24);
+    private static final BigDecimal INCOR_LAT = BigDecimal.valueOf(-190);
 
-    @Autowired
-    private MeasurementService measurementService;
+    private final MeasurementService measurementService;
 
     @BeforeAll
     public static void addThreeValidOneInvalid(@Autowired MeasurementService measurementService) {
 
-        measurementService.addMeasurement(SPB_LAT, SPB_LNG, 10);
-        measurementService.addMeasurement(NY_LAT, NY_LNG, 0);
-        measurementService.addMeasurement(LA_LAT, LA_LNG, -10);
-        measurementService.addMeasurement("-190", LA_LNG, -10);
+        measurementService.addMeasurement(SPB_LAT, SPB_LNG, BigDecimal.valueOf(10));
+        measurementService.addMeasurement(NY_LAT, NY_LNG, BigDecimal.valueOf(0));
+        measurementService.addMeasurement(LA_LAT, LA_LNG, BigDecimal.valueOf(-10));
+        measurementService.addMeasurement(INCOR_LAT, LA_LNG, BigDecimal.valueOf(-10));
 
     }
 
@@ -43,7 +34,7 @@ class MeasurementServiceTest {
 
     @Test
     void getFilteredByCityTest() {
-        assertEquals(measurementService.getFilteredByCity("Санкт-Петербург").size(), 1);
+        assertEquals(measurementService.getLastN(10,"Санкт-Петербург").size(), 1);
 
     }
 
@@ -55,4 +46,4 @@ class MeasurementServiceTest {
 
 
 
-}
+}*/

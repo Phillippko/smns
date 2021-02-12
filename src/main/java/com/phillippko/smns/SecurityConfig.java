@@ -20,8 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/login").permitAll()
                 //.anyRequest().permitAll();
                 .authorizeRequests()
-                .antMatchers("/input").hasRole("ADMIN")
-                .antMatchers("/get").authenticated()
+                .antMatchers("/measurement").hasAnyRole("ADMIN", "SENSOR")
+                .antMatchers("/measurement").authenticated()
                 .and()
                 .logout().and().formLogin();
     }
@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             auth
                     .inMemoryAuthentication()
                     .withUser("admin").password(encoder.encode("1234")).roles("ADMIN").and()
-                    .withUser("user").password(encoder.encode("1234")).roles("USER");
+                    .withUser("user").password(encoder.encode("1234")).roles("USER").and()
+                    .withUser("sensor").password(encoder.encode("1234")).roles("SENSOR");
         }
     }
 }
