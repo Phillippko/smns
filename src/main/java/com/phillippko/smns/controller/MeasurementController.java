@@ -1,34 +1,36 @@
 package com.phillippko.smns.controller;
 
 import com.phillippko.smns.domain.Measurement;
+import com.phillippko.smns.dto.MeasurementDto;
 import com.phillippko.smns.service.MeasurementService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class MeasurementController {
-    @Autowired
-    private MeasurementService measurementService;
 
-    @GetMapping("/input")
-    void postInput(@RequestParam String latitude,
-                   @RequestParam String longitude,
-                   @RequestParam double temperature) {
-        measurementService.addMeasurement(latitude, longitude, temperature);
+    private final MeasurementService measurementService;
+    private final Environment environment;
+
+    @PostMapping("measurements")
+    void postInput(@Valid @RequestBody MeasurementDto measurementDto) {
+        measurementService.addMeasurement(measurementDto.latitude, measurementDto.longitude, measurementDto.temperature);
     }
 
-    @GetMapping("get")
-    List<Measurement> getTenMeasurements() {
-        return measurementService.getLastN(10);
+    @GetMapping("measurements")
+    List<Measurement> getLastN(@RequestParam(defaultValue = "0") int n,
+                               @RequestParam(required = false) String cityName) {
+        if(n == 0) {
+            n = Integer.parseInt(environment.getProperty("defaultCount","10"));
+        }
+        return cityName == null ?
+                measurementService.getLastN(n) :
+                measurementService.getLastN(n, cityName);
     }
 
-    @GetMapping("get-filtered")
-    List<Measurement> getFilteredByCity(
-            @RequestParam String cityName) {
-        return measurementService.getFilteredByCity(cityName);
-    }
 }

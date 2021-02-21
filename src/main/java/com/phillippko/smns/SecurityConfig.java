@@ -14,16 +14,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 //.authorizeRequests()
                 //.antMatchers("/input").hasRole("ADMIN")
                 //.antMatchers("get").hasRole("USER")
                 //.antMatchers("/login").permitAll()
                 //.anyRequest().permitAll();
                 .authorizeRequests()
-                .antMatchers("/input").hasRole("ADMIN")
-                .antMatchers("/get").authenticated()
-                .and()
-                .logout().and().formLogin();
+//                .antMatchers("/measurement").hasAnyRole("ROLE_ADMIN", "ROLE_SENSOR")
+//                .antMatchers("/measurements").authenticated()
+                .anyRequest().permitAll();
+//                .and()
+//                .logout().and().formLogin();
     }
 
     @Configuration
@@ -33,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             auth
                     .inMemoryAuthentication()
                     .withUser("admin").password(encoder.encode("1234")).roles("ADMIN").and()
-                    .withUser("user").password(encoder.encode("1234")).roles("USER");
+                    .withUser("user").password(encoder.encode("1234")).roles("USER").and()
+                    .withUser("sensor").password(encoder.encode("1234")).roles("SENSOR");
         }
     }
 }
