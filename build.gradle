@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.2'
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
@@ -28,8 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 
-	//implementation 'org.springframework.cloud:spring-cloud-starter-feign:1.4.7.RELEASE'
-	implementation 'org.springframework.cloud:spring-cloud-dependencies:2020.0.1'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:2.2.5.RELEASE'
+	implementation 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR8'
 
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
@@ -39,9 +39,10 @@ dependencies {
 
 	implementation 'com.github.ben-manes.caffeine:caffeine'
 
-	//implementation 'io.github.openfeign:feign-okhttp:11.0'
-	//implementation 'io.github.openfeign:feign-gson:11.0'
+	implementation 'io.github.openfeign:feign-okhttp:11.0'
+	implementation 'io.github.openfeign:feign-gson:11.0'
 
+	annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'

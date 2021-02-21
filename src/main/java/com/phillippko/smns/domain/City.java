@@ -2,6 +2,7 @@ package com.phillippko.smns.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +12,12 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor(force = true)
+@RequiredArgsConstructor
 public class City {
     final private String name;
+
     @Id
     @GeneratedValue
-    final private UUID id;
+    private UUID id;
 
 }

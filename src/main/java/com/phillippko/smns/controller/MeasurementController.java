@@ -17,7 +17,7 @@ public class MeasurementController {
     private final MeasurementService measurementService;
     private final Environment environment;
 
-    @PostMapping("measurement")
+    @PostMapping("measurements")
     void postInput(@Valid @RequestBody MeasurementDto measurementDto) {
         measurementService.addMeasurement(measurementDto.latitude, measurementDto.longitude, measurementDto.temperature);
     }

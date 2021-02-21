@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "smns.geocodingUrl",
+      "type": "java.lang.String",
+      "description": "Description for smns.geocodingUrl."
+    },
+    {
+      "name": "smns.applicationApi",
+      "type": "java.lang.String",
+      "description": "Description for smns.applicationApi."
+    }
+  ] }
